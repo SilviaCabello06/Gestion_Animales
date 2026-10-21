@@ -20,10 +20,11 @@ public class AnimalService {
         return animals;
     }
     public Animal findById(Integer id){
-        int i=0;
-        while(animals.size()>i && !Objects.equals(animals.get(i).getId(), id)){
-            i++;
+        for (Animal animal : animals) {
+            if (Objects.equals(animal.getId(), id)) {
+                return animal;
+            }
         }
-        return animals.get(i);
+        return null;
     }
 }

@@ -25,4 +25,8 @@ public class AnimalController {
         model.addAttribute("animal", service.findById(id));
         return "animals/detail";
     }
+    @GetMapping("/error")
+    public String error(){
+        return "error";
+    }
 }
