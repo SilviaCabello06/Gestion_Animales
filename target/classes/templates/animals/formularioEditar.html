@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe" crossorigin="anonymous">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-1a/pXj49ZQ1aHEmrJ+gMw1otqoVsYwlEnlD8mIfY2TV03r20Y0CN7uqx1tQogjPL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="p-3 mb-2 bg-primary fg-contrast-primary">Animales</header>
+    <h1 th:text="${titulo}"></h1>
+    <form th:action="@{/animals/{id}/edit(id=${animal.id})}" th:object="${animal}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <div class="mb-3">
+            <label for="nombreAnimal" class="from-label">Nombre</label>
+            <input type="text" th:field="*{nombre}" name="nombre" placeholder="Nombre" id="nombreAnimal" class="form-control">
+            <div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+        </div>
+        <div class="mb-3">
+            <label for="vidaMedia" class="form-label">Vida media</label>
+            <input type="number" th:field="*{vidaMedia}" name="vidaMedia" placeholder="Vida Media" id="vidaMedia" class="form-control">
+            <div th:if="${#fields.hasErrors('vidaMedia')}" th:errors="*{vidaMedia}"></div>
+        </div>
+        <div class="mb-3 form-field">
+            <label>
+                <input type="checkbox" name="extinto" value="true" class="check"> Extinto
+            </label>
+        </div>
+
+        <button type="submit" class="btn-solid theme-primary">Editar</button>
+    </form>
+    <a th:href="@{/animals}">Volver al listado</a>
+</body>
+</html>

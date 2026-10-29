@@ -27,4 +27,26 @@ public class AnimalService {
         }
         return null;
     }
+
+    public void save(Animal animal) {
+        int newId = animals.isEmpty() ? 1 : animals.getLast().getId() + 1;
+        animal.setId(newId);
+        animals.add(animal);
+    }
+
+    public void update(Integer id, Animal animal){
+        for (int i = 0; i < animals.size(); i++) {
+            if (animals.get(i).getId().equals(id)) {
+                animal.setId(id);
+                animals.set(i, animal);
+                break;
+            }
+        }
+    }
+
+    public void delete(Integer id) {
+        Animal animal= findById(id);
+        animals.remove(animal);
+    }
+
 }
