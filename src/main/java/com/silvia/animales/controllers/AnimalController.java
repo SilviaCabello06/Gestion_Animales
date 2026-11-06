@@ -1,6 +1,7 @@
 package com.silvia.animales.controllers;
 
 import com.silvia.animales.models.Animal;
+import com.silvia.animales.repositories.ClaseRepository;
 import com.silvia.animales.services.AnimalService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -11,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/animals")
 public class AnimalController {
+    private final ClaseRepository claseRepo;
     private final AnimalService service;
-    public AnimalController(AnimalService service){
+    public AnimalController(AnimalService service, ClaseRepository claseRepo){
         this.service=service;
+        this.claseRepo=claseRepo;
     }
-
     @GetMapping
     public String index(Model model){
         model.addAttribute("animals", service.findAll());
@@ -74,4 +76,11 @@ public class AnimalController {
         service.delete(id);
         return "redirect:/animals";
     }
+    @GetMapping("/new")
+    public String createForm(Model model){
+        model.addAttribute("animal", new Animal());
+        model.addAttribute("clases", claseRepo.findAll());
+        return "animals/form";
+    }
+
 }
